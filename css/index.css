@@ -4,6 +4,7 @@ body {
   color: #111;
   padding: 1em;
 }
+/*
 .tasks {
   counter-set: todo-items;
 }
@@ -36,3 +37,4 @@ li:not(:first-child) .task {
   display: block;
   margin: 1em 0;
 }
+*/

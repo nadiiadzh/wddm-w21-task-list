@@ -10,5 +10,5 @@ const loadTaskView = ({id, complete, task}) => {
 
 // A function that will build an entire list based on an Array of data
 export const renderList = (taskAr) => {
-  document.getElementById(`tasks`).innerHTML = taskAr.map(loadTaskView).join('\n')
+document.getElementById(`tasks`).innerHTML = taskAr.map(loadTaskView).join('\n')
 }
