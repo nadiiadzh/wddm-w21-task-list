@@ -1,8 +1,21 @@
 // Define the TaskItem class for the <task-item> Element
 export default class TaskItem extends HTMLElement {
-	constructor() {
+
+	id = null
+	task = ``
+	complete = false
+
+	constructor(item) {
 		super() // Extend the properties and methods of an HTMLElement
-		console.log(this.dataset.complete)
+		console.log(item.complete)
+
+		// set local variables
+		this.id = item.id
+		this.task = item.task
+		this.complete = item.complete
+
+		const customCompleteEvent = new CustomEvent('taskChanged')
+
 		// Shadow DOM (the element)
 		this.root = this.attachShadow({mode: `open`})
 		
@@ -41,18 +54,24 @@ export default class TaskItem extends HTMLElement {
 		
 		const eleInput = document.createElement(`input`)
 		eleInput.setAttribute(`type`, `checkbox`)
-		eleInput.setAttribute(`id`, `task-${this.dataset.id}`) 
-		eleInput.setAttribute(`name`, `task-${this.dataset.id}`) 
-		if(this.dataset.complete === "true"){// Complete
+		eleInput.setAttribute(`id`, `task-${this.id}`) 
+		eleInput.setAttribute(`name`, `task-${this.id}`) 
+		if(item.complete){// Complete
 			eleInput.setAttribute(`checked`, `checked`)
 		}
 		
+		eleInput.addEventListener(`change`,(event)=>{
+			console.log(`check`,eleInput.checked)
+			this.complete =eleInput.checked
+			this.dispatchEvent(customCompleteEvent)
+		})
+
 		eleItem.appendChild(eleInput)
 		
 		const eleLabel = document.createElement(`label`)
-		eleLabel.setAttribute(`for`, `task-${this.dataset.id}`)
+		eleLabel.setAttribute(`for`, `task-${this.id}`)
 		eleLabel.setAttribute(`class`, `task`)
-		eleLabel.textContent = this.dataset.task
+		eleLabel.textContent = this.task
 		eleItem.appendChild(eleLabel)
 		
 		this.root.appendChild(eleItem)

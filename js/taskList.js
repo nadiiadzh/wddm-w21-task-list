@@ -15,6 +15,9 @@ export const renderList = (taskAr) => {
 }
 */
 export default class TaskList extends HTMLElement{
+
+    list = null
+
     constructor(todoList){
         super()
         this.root = this.attachShadow({mode: `open`})
@@ -30,17 +33,32 @@ export default class TaskList extends HTMLElement{
         this.root.appendChild(eleStyle)
 
         //build an empty list
-        const eleList = document.createElement(`ul`)
-
+        this.list = document.createElement(`ul`)
+/*
         const loadTaskView = ({id, complete, task}) => {
             return `<task-item data-id="${id}" data-complete="${complete}" data-task="${task}"></task-item>`
 
         }
-
         // Add all of the <task-item> elements to empty list 
         eleList.innerHTML  = todoList.map(loadTaskView).join(`\n`)
+*/      
+        todoList.forEach((item) => {
+
+            const aTask = new TaskItem(item)
+            aTask.addEventListener('taskChanged', event =>{console.log('Task complete',aTask.complete)})
+            this.list.appendChild(aTask)
+            
+        });
+
         // add the list to the root
-        this.root.appendChild(eleList)
+        this.root.appendChild(this.list)
+    }
+
+    addNewTask(name){
+            // Figure out what the next available id is
+       const aTask = new TaskItem({id:4, task:name, complete:false})
+        aTask.addEventListener('taskChanged', event =>{console.log('Task complete',aTask.complete)})
+        this.list.appendChild(aTask)
     }
 }
 window.customElements.define(`task-list`,TaskList)

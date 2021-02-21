@@ -18,6 +18,9 @@ window.addEventListener(`load`, (event) => {
   // 2nd way to build task list(todolist- we can pass information to the TaskList constructor)  
   const theListElement = new TaskList(todoList)
   document.getElementById(`app`).appendChild(theListElement)
+
+  //Prototype adding a new item to the list
+  theListElement.addNewTask(`Class complete!`) 
   
 })
 
