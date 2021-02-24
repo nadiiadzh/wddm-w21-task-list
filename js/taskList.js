@@ -56,9 +56,27 @@ export default class TaskList extends HTMLElement{
 
     addNewTask(name){
             // Figure out what the next available id is
-       const aTask = new TaskItem({id:4, task:name, complete:false})
+        const aTask = new TaskItem({id:4, task:name, complete:false})
         aTask.addEventListener('taskChanged', event =>{console.log('Task complete',aTask.complete)})
         this.list.appendChild(aTask)
     }
+
+    render(newTaskList){
+        //rebuild the list
+        // -empty the list
+        //- loop through the data to rebuild
+        console.log(this.list.children.length)
+        this.list.innerHTML =''
+        console.log(this.list.children.length)
+        
+        newTaskList.forEach((item) => {
+
+            const aTask = new TaskItem(item)
+            aTask.addEventListener('taskChanged', event =>{console.log('Task complete',aTask.complete)})
+            this.list.appendChild(aTask)
+            
+        });
+    }
 }
+
 window.customElements.define(`task-list`,TaskList)

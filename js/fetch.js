@@ -22,3 +22,14 @@ export const getJsonData = (url) => {
 
   return todoList
 }
+ export const addNewTask = (taskName) =>{
+   //pretend we are updating the database
+  // POST request
+   todoList.push({
+     "id": todoList.length+1,
+     "task": taskName,
+     "complete": false
+   })
+   //pretend this came from the database after a succesful update 
+   return todoList
+ }
